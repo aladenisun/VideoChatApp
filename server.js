@@ -4,6 +4,8 @@ const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
+var port = process.env.PORT || 5000;
+var bodyParser = require("body-parser");
 
 const users = {};
 
