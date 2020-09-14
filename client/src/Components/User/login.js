@@ -1,77 +1,91 @@
 import React, { Component } from "react";
-import { login } from "./UserFunctions";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
-      errors: {},
+      loggedIn: false,
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  onSubmit(e) {
-    e.preventDefault();
+  handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+    console.log(name, value);
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    let data = {};
+    data[name] = value;
 
-    login(user).then((res) => {
-      if (res) {
-        this.props.history.push(`/profile`);
-      }
-    });
+    this.setState(data);
   }
 
   render() {
+    if (this.state.loggedIn) {
+      return <Redirect to="/" />;
+    }
+
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <div className="base-container">
+        <h1 className="header">Please sign in</h1>
+        <form className="form" onSubmit={this.submit}>
+          <div className="content">
+            <div>
               <div className="form-group">
-                <label htmlFor="email">Email address</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
-                  className="form-control"
                   name="email"
-                  placeholder="Enter email"
+                  placeholder="Email"
                   value={this.state.email}
-                  onChange={this.onChange}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
-                  className="form-control"
                   name="password"
-                  placeholder="Password"
+                  placeholder="password"
                   value={this.state.password}
-                  onChange={this.onChange}
+                  onChange={this.handleChange}
                 />
               </div>
-              <button
-                type="submit"
-                className="btn btn-lg btn-primary btn-block"
-              >
-                Sign in
+            </div>
+            <div className="footer">
+              <button type="submit" value="Submit" className="btn">
+                Login
               </button>
-            </form>
+            </div>
+            <p>
+              {" "}
+              Not a Member? <a href="/register">Register</a>
+            </p>
           </div>
-        </div>
+        </form>
       </div>
     );
+  }
+
+  submit() {
+    axios
+      .post("http://passport.test/api/login", {
+        email: this.state.email,
+        password: this.state.password,
+      })
+      .then((response) => {
+        console.log("response");
+
+        this.setState({ loggedIn: true });
+
+        localStorage.setItem("token", response.data.auth.access_token);
+      });
   }
 }
 

@@ -4,10 +4,21 @@ const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-var port = process.env.PORT || 5000;
 var bodyParser = require("body-parser");
+const cors = require("cors");
+var port = process.env.PORT || 3000;
 
-const users = {};
+app.use(bodyParser.json());
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//var Users = require("./routes/Users");
+
+//app.use("users", Users);
+
+app.listen(port, function () {
+  console.log("Server is running on port " + port);
+});
 
 io.on("connection", (socket) => {
   if (!users[socket.id]) {
