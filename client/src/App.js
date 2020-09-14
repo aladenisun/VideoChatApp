@@ -6,6 +6,7 @@ import Login from "./Components/User/login";
 import Profile from "./Components/profile";
 import Register from "./Components/User/register";
 import Home from "./Components/Home";
+import CallPage from "./Components/callPage";
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            This is the App Page
+            <Route exact path="/Call Page" component={CallPage} />
+            This is the App Page. This will be editted
           </Switch>
         </div>
       </Router>
