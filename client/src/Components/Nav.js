@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Link, withRouter } from "react-router-dom";
 
 class Nav extends React.Component {
@@ -25,6 +26,11 @@ class Nav extends React.Component {
             Register
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/callPage" className="nav-link">
+            Call Page
+          </Link>
+        </li>
       </ul>
     );
 
@@ -36,7 +42,7 @@ class Nav extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <a href="/#" onClick={this.logOut.bind(this)} className="nav-link">
+          <a href="" onClick={this.logOut.bind(this)} className="nav-link">
             Logout
           </a>
         </li>

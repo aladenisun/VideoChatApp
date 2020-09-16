@@ -26,8 +26,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/Call Page" component={CallPage} />
+            <Route exact path="/callPage" component={CallPage} />
             This is the App Page. This will be editted
           </Switch>
         </div>
