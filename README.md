@@ -1,4 +1,4 @@
-# Web_App_Blog
+# Video-Web-App
 
 ## Project setup
 
