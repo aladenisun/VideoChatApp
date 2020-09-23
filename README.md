@@ -6,6 +6,22 @@
 npm install
 ```
 
+### To run Server Side
+
+```
+- open two terminal tabs
+- 1st Tab: in project folder
+    node server.js
+```
+
+### To run Frontend Side
+
+```
+
+- 2nd Tab: cd client
+    npm run start
+```
+
 ### Compiles and hot-reloads for development
 
 ```
@@ -16,23 +32,6 @@ npm run serve
 
 ```
 npm run build
-```
-
-### To run Frontend Side
-
-```
-- open two terminal tabs
-- 1st Tab: in project folder
-    node server.js
-
-- 2nd Tab: cd client
-    npm run start
-```
-
-### To run Server Side
-
-```
-
 ```
 
 ## RANDOM ADDITION
