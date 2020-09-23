@@ -22,13 +22,13 @@ class Nav extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Register
+          <Link to="/callPage" className="nav-link">
+            Call Page
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/callPage" className="nav-link">
-            Call Page
+          <Link to="/profile" className="nav-link">
+            Profile
           </Link>
         </li>
       </ul>
@@ -37,12 +37,7 @@ class Nav extends React.Component {
     const userLink = (
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link to="/profile" className="nav-link">
-            Profile
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a href="" onClick={this.logOut.bind(this)} className="nav-link">
+          <a href="/" onClick={this.logOut.bind(this)} className="nav-link">
             Logout
           </a>
         </li>
@@ -80,33 +75,6 @@ class Nav extends React.Component {
       </nav>
     );
   }
-  // return (
-  //   <nav>
-  //     <h3>Hello</h3>
-  //     <ul className="nav-item">
-  //       <Link style={navStyle} to="/register" class="nav-link">
-  //         <li>Register</li>
-  //       </Link>
-  //       <Link style={navStyle} to="/login"class="nav-link">
-  //         <li>Login</li>
-  //       </Link>
-  //       <Link style={navStyle} to="/callPage"class="nav-link">
-  //         <li>CallPage</li>
-  //       </Link>
-
-  //     </ul>
-  //     <ul className="nav-item">
-  //       <Link style={navStyle} to="/profile" class="nav-link">
-  //         <li>Profile</li>
-  //       </Link>
-  //       <li className="nav-item">
-  //         <a href="" onClick={this.logOut.bind(this)} className="nav-link">
-  //           Logout
-  //         </a>
-  //       </li>
-  //     </ul>
-  //   </nav>
-  // )
 }
 
 export default withRouter(Nav);

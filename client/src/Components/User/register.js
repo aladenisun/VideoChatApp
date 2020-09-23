@@ -1,105 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import UserPool from "./UserPool";
+
+//import { Redirect } from "react-router-dom";
 import "./style.scss";
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
+function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    this.state = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-    };
+  const onSubmit = (event) => {
+    event.preventDefault();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);
-  }
+    UserPool.signUp(email, password, [], null, (err, data) => {
+      if (err) console.error(err);
+      console.log(data);
+    });
+  };
 
-  handleChange(e) {
-    let name = e.target.name;
-    let value = e.target.value;
-    console.log(name, value);
-    let data = {};
-    data[name] = value;
-
-    this.setState(data);
-  }
-
-  render() {
-    return (
-      <div className="base-container">
-        <div className="header">Register</div>
-        <form className="form">
-          <div className="content">
-            <div>
-              <div className="form-group">
-                <label htmlFor="first_name">First Name</label>
-                <input
-                  type="first_name"
-                  name="first_name"
-                  placeholder="First Name"
-                  value={this.state.first_name}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="last_name">Last Name</label>
-                <input
-                  type="last_name"
-                  name="last_name"
-                  placeholder="Last Name"
-                  value={this.state.last_name}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-              </div>
+  return (
+    <div className="base-container">
+      <h1 className="header">Register</h1>
+      <form className="form" onSubmit={onSubmit}>
+        <div className="content">
+          <div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                //type="email"
+                //name="email"
+                placeholder="Email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                //type="password"
+                //name="password"
+                placeholder="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
             </div>
           </div>
           <div className="footer">
-            <button type="submit" className="btn" value="Submit">
+            <button type="submit" className="btn">
               Register
             </button>
           </div>
           <p>
             {" "}
-            Already a Member? <a href="/login">Sign In</a>
+            Already a member? <a href="/login">Login</a>
           </p>
-        </form>
-      </div>
-    );
-  }
-  submit(e) {
-    e.preventDefault();
-
-    window.axios
-      .post("http://passport.test/api/register", {
-        email: this.state.email,
-        name: this.state.name,
-        password: this.state.password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.auth.access_token);
-      });
-  }
+        </div>
+      </form>
+    </div>
+  );
 }
+
 export default Register;
