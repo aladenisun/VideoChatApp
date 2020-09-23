@@ -1,4 +1,4 @@
-# Video-Web-App
+# Video-Chat-App
 
 ## Project setup
 
@@ -10,7 +10,7 @@ npm install
 
 ```
 - open two terminal tabs
-- 1st Tab: video-chat
+- 1st Tab: VideoChatApp
     run: node server.js
 ```
 
