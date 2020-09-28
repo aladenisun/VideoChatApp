@@ -25,8 +25,6 @@ class App extends React.Component {
       <Router>
         <Account className="App">
           <Nav />
-          <Status />
-          {/* <Settings /> */}
           <Route exact path="/" component={Home} />
           <Switch>
             <Route exact path="/register" component={Register} />

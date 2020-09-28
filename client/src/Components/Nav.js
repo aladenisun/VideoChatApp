@@ -1,52 +1,23 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "./User/Accounts";
+import { Redirect, Link, withRouter } from "react-router-dom";
+import { Navbar, Button } from "react-bootstrap";
 
-import { Link, withRouter } from "react-router-dom";
+function Nav() {
+  const [status, setStatus] = useState(false);
 
-class Nav extends React.Component {
-  logOut(e) {
-    e.preventDefault();
-    localStorage.removeItem("usertoken");
-    this.props.history.push(`/`);
-  }
+  const { getSession, logout } = useContext(AccountContext);
 
-  navStyle = {
-    color: "white",
-  };
+  useEffect(() => {
+    getSession().then((session) => {
+      console.log("Session:", session);
+      setStatus(true);
+    });
+  });
 
-  render() {
-    const loginRegLink = (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/callPage" className="nav-link">
-            Call Page
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/profile" className="nav-link">
-            Profile
-          </Link>
-        </li>
-      </ul>
-    );
-
-    const userLink = (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <a href="/" onClick={this.logOut.bind(this)} className="nav-link">
-            Logout
-          </a>
-        </li>
-      </ul>
-    );
-
-    return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
-        <h3>Hello</h3>
+  return (
+    <Navbar bg="dark" variant="dark">
+      <nav className="container-fluid navbar-dark bg-dark rounded">
         <button
           className="navbar-toggler"
           type="button"
@@ -59,22 +30,46 @@ class Nav extends React.Component {
           <span className="navbar-toggler-icon" />
         </button>
 
-        <div
-          className="collapse navbar-collapse justify-content-md-center"
-          id="navbarsExample10"
-        >
-          <ul className="navbar-nav">
+        <div>
+          {status ? (
+            <div>
+              <Redirect to="/profile" className="btn btn-secondary"></Redirect>
+              <div>
+                <ul className="navbar-nav" style={{ paddingLeft: "75em" }}>
+                  <li className="nav-item">
+                    <Link to="/" className="nav-link">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/callPage" className="nav-link">
+                      Call Page
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/profile" className="nav-link">
+                      Profile
+                    </Link>
+                  </li>
+                </ul>
+                <li className="nav-item">
+                  <Button onClick={logout} className="btn1">
+                    Logout
+                  </Button>
+                </li>
+              </div>
+            </div>
+          ) : (
             <li className="nav-item">
-              <Link to="/" className="nav-link">
-                Home
+              <Link to="/login" className="nav-link" style={{ color: "#fff" }}>
+                Login
               </Link>
             </li>
-          </ul>
-          {localStorage.usertoken ? userLink : loginRegLink}
+          )}
         </div>
       </nav>
-    );
-  }
+    </Navbar>
+  );
 }
 
 export default withRouter(Nav);

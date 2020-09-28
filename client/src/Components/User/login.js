@@ -53,7 +53,10 @@ function Login() {
           </div>
           <p>
             {" "}
-            Not a Member? <a href="/register">Register</a>
+            Not a Member?{" "}
+            <a href="/register" className="App-link">
+              Register
+            </a>
           </p>
         </div>
       </form>
