@@ -1,10 +1,9 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #080850;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -33,7 +32,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: #282c34;
+  background: #030916;
   color: white;
 }
 
@@ -41,6 +40,7 @@ nav {
   //padding-left: 75em;
   font-size: 15px;
   //float: right;
+  flex: 0.5
 }
 
 .text {
@@ -56,9 +56,10 @@ nav {
   font-size: 21px;
   padding: 5px 20px;
   border: 0;
-  background-color: #3498db;
+  background-color: #184086;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 5px;
+  display: inline-block;
   align-items: center;
   cursor: pointer;
 }
@@ -70,7 +71,11 @@ nav {
   background-color: #d9e4eb;
   color: rgb(22, 21, 21);
   border-radius: 1px;
+  margin-bottom: 1em;
+  margin-left: 3em;
+  margin-bottom: 3em;
   align-items: center;
+  display: inline-block;
   cursor: pointer;
 }
 

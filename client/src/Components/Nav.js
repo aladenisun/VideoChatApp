@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "./User/Accounts";
-import { Redirect, Link, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Navbar, Button } from "react-bootstrap";
 
 function Nav() {
@@ -17,7 +17,7 @@ function Nav() {
 
   return (
     <Navbar bg="dark" variant="dark">
-      <nav className="container-fluid navbar-dark bg-dark rounded">
+      <nav className="container-fluid nav">
         <button
           className="navbar-toggler"
           type="button"
@@ -33,24 +33,24 @@ function Nav() {
         <div>
           {status ? (
             <div>
-              <Redirect to="/profile" className="btn btn-secondary"></Redirect>
+              {/* <Redirect to="/" className="btn btn-secondary"></Redirect> */}
               <div>
-                <ul className="navbar-nav" style={{ paddingLeft: "75em" }}>
+                <ul className="navbar-nav" style={{ paddingLeft: "85em" }}>
                   <li className="nav-item">
                     <Link to="/" className="nav-link">
                       Home
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/callPage" className="nav-link">
-                      Call Page
+                    <Link to="/joinRoom" className="nav-link">
+                       Call
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link to="/profile" className="nav-link">
                       Profile
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
                 <li className="nav-item">
                   <Button onClick={logout} className="btn1">

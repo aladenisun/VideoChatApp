@@ -5,13 +5,13 @@ import UserPool from "./UserPool";
 import "./style.scss";
 
 function Register() {
-  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    UserPool.signUp(email, password, [], null, (err, data) => {
+    UserPool.signUp(username, password, [], null, (err, data) => {
       if (err) console.error(err);
       console.log(data);
     });
@@ -19,18 +19,18 @@ function Register() {
 
   return (
     <div className="base-container">
-      <h1 className="header">Register</h1>
+      <h1 className="header">Create Room</h1>
       <form className="form" onSubmit={onSubmit}>
         <div className="content">
           <div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="username">Username</label>
               <input
                 //type="email"
                 //name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                placeholder="Id"
+                value={username}
+                onChange={(event) => setUserName(event.target.value)}
               />
             </div>
             <div className="form-group">
@@ -46,10 +46,10 @@ function Register() {
           </div>
           <div className="footer">
             <button type="submit" className="btn">
-              Register
+              Create
             </button>
           </div>
-          <p>
+          <p className="footer2">
             {" "}
             Already a member? <a href="/login">Login</a>
           </p>

@@ -18,9 +18,7 @@ function Status() {
     <div>
       {status ? (
         <div>
-          <pre>You are logged in.</pre>
-          <Redirect to="/profile" className="btn btn-secondary">
-            "Please login"
+          <Redirect to="/" className="btn btn-secondary">
           </Redirect>
           <button onClick={logout}> Logout</button>
         </div>

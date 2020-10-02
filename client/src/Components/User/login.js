@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AccountContext } from "./Accounts";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const { authenticate } = useContext(AccountContext);
@@ -10,7 +10,7 @@ function Login() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    authenticate(email, password)
+    authenticate(username, password)
       .then((data) => {
         console.log("logged In!", data);
       })
@@ -26,13 +26,13 @@ function Login() {
         <div className="content">
           <div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="username">Username</label>
               <input
                 //type="email"
                 //name="email"
                 placeholder="Email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                value={username}
+                onChange={(event) => setUserName(event.target.value)}
               />
             </div>
             <div className="form-group">
@@ -47,11 +47,11 @@ function Login() {
             </div>
           </div>
           <div className="footer">
-            <button type="submit" className="btn">
+            <button type="submit" className="btn mt-20">
               Login
             </button>
           </div>
-          <p>
+          <p className="footer2">
             {" "}
             Not a Member?{" "}
             <a href="/register" className="App-link">
