@@ -10,7 +10,7 @@ npm install
 
 ```
 - open two terminal tabs
-- 1st Tab: VideoChatApp
+- 1st Tab: cd server
     run: node server.js
 ```
 
