@@ -7,7 +7,7 @@ class Home extends Component {
         <div className="jumbotron mt-5">
           <div className="col-sm-8 mx-auto">
             <h1 className=" heading1 text-center">WELCOME</h1>
-            <h3 className="text-center">Sign Language Transcriber Web App</h3>
+            <h3 className="text-center">Sign Language Transcribing Web App</h3>
           </div>
         </div>
       </div>

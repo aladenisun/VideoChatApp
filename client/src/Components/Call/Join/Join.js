@@ -11,7 +11,7 @@ const CreateRoom = () => {
     return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
-        <pre className="heading">JOIN ROOM</pre>
+        <pre className="heading">JOIN A ROOM</pre>
         <div>
           <input placeholder="Name" className="joinInput" type="text" onChange={(event) => setName(event.target.value)} />
         </div>

@@ -30,7 +30,7 @@ function Login() {
               <input
                 //type="email"
                 //name="email"
-                placeholder="Email"
+                placeholder="Id"
                 value={username}
                 onChange={(event) => setUserName(event.target.value)}
               />

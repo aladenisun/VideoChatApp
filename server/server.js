@@ -15,6 +15,7 @@ const io = socketio(server);
 io.on('connection', (socket) => {
 
     socket.on('join', ({ name, room }, callback) => {
+
         const { error, user } = addUser({ id: socket.id, name, room});
 
         if(error) return callback(error);
@@ -30,9 +31,18 @@ io.on('connection', (socket) => {
 
     });
 
+    socket.on("sending signal", payload => {
+        io.to(payload.userToSignal).emit('user video joined', { signal: payload.signal, callerID: payload.callerID });
+    });
+
+    socket.on("returning signal", payload => {
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
+    });
+
+
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
-
+        
         io.to(user.room).emit('message', { user: user.name, text: message });
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
 
