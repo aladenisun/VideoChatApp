@@ -26,6 +26,8 @@ io.on('connection', (socket) => {
         socket.join(user.room);
 
         io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)});
+        io.to(payload.userToSignal).emit('user video joined', { signal: payload.signal, callerID: payload.callerID });
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
 
         callback();
 
@@ -40,11 +42,13 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('sendMessage', (message, callback) => {
+    socket.on('sendMessage', (payload, message, callback) => {
         const user = getUser(socket.id);
         
         io.to(user.room).emit('message', { user: user.name, text: message });
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+        io.to(payload.userToSignal).emit('user video joined', { signal: payload.signal, callerID: payload.callerID });
+        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
 
         callback();
     });
@@ -61,5 +65,3 @@ io.on('connection', (socket) => {
 app.use(router);
 
 server.listen(PORT, ()=> console.log(`Server has started on port ${PORT}`));
-
-

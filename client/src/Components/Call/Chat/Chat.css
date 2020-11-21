@@ -13,8 +13,8 @@
     background: #FFFFFF;
     border-radius: 8px;
     margin-right: 5em;
-    height: 90%;
-    width: 35%;
+    height: 80%;
+    width: 90%;
   }
   
   @media (min-width: 320px) and (max-width: 480px) {
@@ -33,3 +33,4 @@
       width: 60%;
     }
   }
+

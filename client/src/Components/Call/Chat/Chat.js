@@ -9,8 +9,8 @@ import Input from '../Input/Input'
 import Messages from '../Messages/Messages'
 import VideoChat from "./VideoChat";
 
-let socket;
 
+let socket;
 
 
 const Chat = ({location})=> {
@@ -23,6 +23,7 @@ const Chat = ({location})=> {
 
     
 
+
    useEffect(() => {
     const { name, room } = queryString.parse(location.search);
     
@@ -30,6 +31,7 @@ const Chat = ({location})=> {
 
     setName(name);
     setRoom(room);
+    
 
     socket.emit('join', { name: name, room: room }, () => {
 
@@ -40,7 +42,6 @@ const Chat = ({location})=> {
         socket.off();
     }
 }, [ENDPOINT, location.search]);
-
 
     useEffect(() => {
         socket.on ('message', (message) => {
@@ -59,11 +60,6 @@ const Chat = ({location})=> {
     console.log(message, messages);
 
 
-
-    
-
-
-
     return (
         <div className="outerContainer">
             <VideoChat room = {room} name = { name }/>
@@ -78,9 +74,4 @@ const Chat = ({location})=> {
 
 
 export default Chat
-
-
-
-
-
 

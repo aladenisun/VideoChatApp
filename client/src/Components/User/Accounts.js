@@ -50,10 +50,11 @@ const Account = (props) => {
     });
 
   const logout = () => {
-    const user = Pool.getCurrentUser();
-    if (user) {
-      user.signOut();
-    }
+    // const user = Pool.getCurrentUser();
+    // if (user) {
+    //   user.signOut();
+    // }
+    console.log("LoggedOut")
   };
 
   return (

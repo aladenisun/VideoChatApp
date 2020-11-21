@@ -24,12 +24,11 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Account className="App">
+         <Account className="App"> 
           <Nav />
           <Route exact path="/joinRoom" component={CreateRoom} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            {/* <Route exact path="/profile" component={Profile} /> */}
             <Route exact path="/" component={Home} />
             <Route path="/chat" component={Chat} />
             <Route exact path="/settings" component={Settings} />

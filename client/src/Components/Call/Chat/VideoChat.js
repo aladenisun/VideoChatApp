@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect} from "react";
-import queryString from "query-string";
+//`import queryString from "query-string";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
-
+//import queryString from "query-string";
 
 const Container = styled.div`
     padding: 20px;
+    padding-top: 400px;
     display: flex;
     height: 100vh;
     width: 90%;
@@ -14,10 +15,12 @@ const Container = styled.div`
     flex-wrap: wrap;
 `;
 
+
 const StyledVideo = styled.video`
     height: 50%;
     width: 90%;
 `;
+
 
 const Video = ( props ) => {
     const ref = useRef();
@@ -26,7 +29,7 @@ const Video = ( props ) => {
         props.peer.on("stream", stream => {
             ref.current.srcObject = stream;
         })
-    }, []);
+    });
 
     return (
         <StyledVideo playsInline autoPlay ref={ref} />
@@ -39,24 +42,31 @@ const videoConstraints = {
     width: window.innerWidth / 2
 };
 
-const VideoChat = ({ room, name }) => {
+let socket;
+
+const VideoChat = ({ room, name ,id }) => {
+    
     const [peers, setPeers] = useState([]);
     const userVideo = useRef();
     const peersRef = useRef([]);
-    const socketRef = useRef();
-   // const roomID = props.match.params.room;
+    const ENDPOINT = 'localhost:3000'
 
     useEffect(() => {
-        socketRef.current = io.connect("/joinRoom");
+
+        socket = io(ENDPOINT);
+
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
-            socketRef.current.emit("join room", room);
-            socketRef.current.on("all users", users => {
+            socket.emit('join', { name: name, room: room }, () => {
+
+            });
+
+            socket.on("roomData", users => {
                 const peers = [];
-                users.forEach(classNames => {
-                    const peer = createPeer(name, socketRef.current.id, stream);
+                users.forEach(userID => {
+                    const peer = createPeer(userID, socket.id, stream);
                     peersRef.current.push({
-                        peerID: name,
+                        peerID: userID,
                         peer,
                     })
                     peers.push(peer);
@@ -64,7 +74,7 @@ const VideoChat = ({ room, name }) => {
                 setPeers(peers);
             })
 
-            socketRef.current.on("user joined", payload => {
+            socket.on("user joined", payload => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
                 peersRef.current.push({
                     peerID: payload.callerID,
@@ -74,12 +84,12 @@ const VideoChat = ({ room, name }) => {
                 setPeers(users => [...users, peer]);
             });
 
-            socketRef.current.on("receiving returned signal", payload => {
+            socket.on("receiving returned signal", payload => {
                 const item = peersRef.current.find(p => p.peerID === payload.id);
                 item.peer.signal(payload.signal);
             });
         })
-    }, []);
+    });
 
     function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
@@ -89,7 +99,7 @@ const VideoChat = ({ room, name }) => {
         });
 
         peer.on("signal", signal => {
-            socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
+            socket.emit("sending signal", { userToSignal, callerID, signal })
         })
 
         return peer;
@@ -103,7 +113,7 @@ const VideoChat = ({ room, name }) => {
         })
 
         peer.on("signal", signal => {
-            socketRef.current.emit("returning signal", { signal, callerID })
+            socket.emit("returning signal", { signal, callerID })
         })
 
         peer.signal(incomingSignal);
